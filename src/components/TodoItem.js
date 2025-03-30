@@ -1,28 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 
-class TodoItem extends React.Component {
-  render() {
-    const completedStyle = {
-      fontStyle: "italic",
-      color: "#d35e0f",
-      opacity: 0.4,
-      textDecoration: "line-through"
-    };
+const TodoItem = ({ todo, handleChangeProps, deleteTodoProps, addCommentProps }) => {
 
-    const { completed, id, title } = this.props.todo;
+  const completedStyle = {
+    fontStyle: "italic",
+    color: "#d35e0f",
+    opacity: 0.4,
+    textDecoration: "line-through"
+  };
 
-    return (
-      <li className="todo-item">
+  const { completed, id, title, assignedUsers, comment } = todo;
+
+  const [commentText, setCommentText] = useState('')
+  const [openCommentInput, setOpenCommentInput] = useState(false)
+
+  const handleAddComment = () => {
+    addCommentProps(id, commentText);
+    setCommentText('')
+  }
+
+  return (
+    <li>
+      <div className="todo-item">
         <input
           type="checkbox"
           checked={completed}
-          onChange={() => this.props.handleChangeProps(id)}
+          onChange={() => handleChangeProps(id)}
         />
-        <button onClick={() => this.props.deleteTodoProps(id)}>Delete</button>
+
+        <button onClick={() => deleteTodoProps(id)}>Delete</button>
+        <button className="comment-btn" onClick={() => setOpenCommentInput(!openCommentInput)}>{openCommentInput === true ? 'Close' : 'Add Comment' }</button>
         <span style={completed ? completedStyle : null}>{title}</span>
-      </li>
-    );
-  }
+        {assignedUsers && <span className="user-item" >{assignedUsers}</span>}
+      </div>
+      <div>
+        {openCommentInput ?
+          <div>
+            <input type="text" className="comment-input" name="commentText" value={commentText} onChange={(e) => setCommentText(e.target.value)} />
+            <button className="add-comment-btn" onClick={handleAddComment}>Add Comment</button>
+            {
+              comment && <div>
+                {comment.map((com, i) => (
+                  <div className="comment-container" key={i}>
+                    <span className="comment-text">{com}</span>
+                  </div>
+
+                ))}
+              </div>
+            }
+          </div>
+          : null}
+      </div>
+
+    </li>
+  );
 }
 
 export default TodoItem;

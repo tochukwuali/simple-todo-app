@@ -15,8 +15,27 @@ body {
 }
 .form-container {
   display: flex;
+  justify-content: space-between;
   width: 100%;
 }
+
+.users-list {
+  margin: 0 8px;
+}
+
+.user-item {
+  margin-left: 10px;
+  display: inline-block;
+  background-color: #a5f4a5;
+  color: green;
+  padding: 3px 5px;
+  border-radius: 15px
+}
+
+.comment-btn {
+  margin-right: 5px;
+}
+
 .input-text {
   flex: 8;
   font-size: 14px;
@@ -42,10 +61,14 @@ body {
 }
 
 .todo-item {
-  list-style-type: none;
   padding: 17px 0px;
   border-bottom: 1px solid #eaeaea;
 }
+
+li {
+  list-style-type: none;
+}
+
 .todo-item input {
   margin-right: 15px;
 }
@@ -57,4 +80,33 @@ body {
   cursor: pointer;
   float: right;
   outline: none;
+}
+
+.add-comment-btn {
+  margin-left: 5px;
+  border-radius: 5px;
+  background: #038203;
+  color: white;
+  border: 1px solid #038203;
+  padding: 6px 15px;
+}
+
+.comment-input {
+  flex: 8;
+  font-size: 14px;
+  padding: 6px 15px;
+  border: 1px solid #cecece;
+  outline: none;
+  font-weight: 400;
+  max-width: 80%;
+}
+
+.comment-container {
+  margin-top: 6px;
+}
+
+.comment-text {
+  color: gray;
+  margin-left: 12px;
+
 }
