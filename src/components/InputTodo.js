@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { TodosContext } from "../todoContext";
 
-const InputTodo = ({ addTodoProps, usersProps }) => {
+const InputTodo = () => {
+
+  const { addTodoItem, users } = useContext(TodosContext)
 
   const [state, setState] = useState({
     title: '',
@@ -22,7 +25,7 @@ const InputTodo = ({ addTodoProps, usersProps }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    addTodoProps(state.title, state.user);
+    addTodoItem(state.title, state.user);
     setState({
       title: "",
     });
@@ -40,7 +43,7 @@ const InputTodo = ({ addTodoProps, usersProps }) => {
       />
       <select id="users" name="users" value={state.user} onChange={handleChangeOption} className="users-list">
         <option value="" disabled>Select an option</option>
-        {usersProps.map((user, i) => (
+        {users.map((user, i) => (
           <option key={i}>{user}</option>
         ))}
       </select>

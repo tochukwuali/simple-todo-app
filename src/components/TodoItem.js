@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { TodosContext } from "../todoContext";
 
-const TodoItem = ({ todo, handleChangeProps, deleteTodoProps, addCommentProps }) => {
+const TodoItem = ({todo}) => {
 
   const completedStyle = {
     fontStyle: "italic",
@@ -9,13 +10,15 @@ const TodoItem = ({ todo, handleChangeProps, deleteTodoProps, addCommentProps })
     textDecoration: "line-through"
   };
 
+  const { handleChange, deleteTodo, addComments } = useContext(TodosContext)
+ 
   const { completed, id, title, assignedUsers, comment } = todo;
 
   const [commentText, setCommentText] = useState('')
   const [openCommentInput, setOpenCommentInput] = useState(false)
 
   const handleAddComment = () => {
-    addCommentProps(id, commentText);
+    addComments(id, commentText);
     setCommentText('')
   }
 
@@ -25,10 +28,10 @@ const TodoItem = ({ todo, handleChangeProps, deleteTodoProps, addCommentProps })
         <input
           type="checkbox"
           checked={completed}
-          onChange={() => handleChangeProps(id)}
+          onChange={() => handleChange(id)}
         />
 
-        <button onClick={() => deleteTodoProps(id)}>Delete</button>
+        <button onClick={() => deleteTodo(id)}>Delete</button>
         <button className="comment-btn" onClick={() => setOpenCommentInput(!openCommentInput)}>{openCommentInput === true ? 'Close' : 'Add Comment' }</button>
         <span style={completed ? completedStyle : null}>{title}</span>
         {assignedUsers && <span className="user-item" >{assignedUsers}</span>}
